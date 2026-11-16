@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Personal Command Center — osobisty pulpit informacji i narzędzi.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Personal Command Center</title>
+<style>
+:root{color-scheme:dark;--bg:#0a0a0a;--panel:#141414;--panel2:#1b1b1b;--line:#292929;--white:#f5f5f2;--muted:#999b94;--lime:#bfff00;--soft:rgba(191,255,0,.11)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:0 17px}
+header{height:66px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:#0a0a0aee;backdrop-filter:blur(14px);z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:850;letter-spacing:.13em}.mark{width:10px;height:10px;background:var(--lime);border-radius:3px;box-shadow:0 0 15px #bfff0066}.head-actions{display:flex;align-items:center;gap:8px}
+.pill{font-size:9px;letter-spacing:.12em;color:var(--lime);border:1px solid #526d13;background:var(--soft);padding:7px 9px;border-radius:30px}
+.iconbtn{border:1px solid var(--line);background:var(--panel);color:var(--white);border-radius:10px;padding:8px 10px}
+main{padding:23px 0 30px}.view{display:none}.view.active{display:block}.pagehead{display:flex;align-items:end;justify-content:space-between;margin:2px 0 17px;gap:12px}.eyebrow{font-size:10px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;font-weight:750}.page-title{font-size:25px;letter-spacing:-.045em;font-weight:750;margin-top:5px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:18px;min-width:0}.grid2{display:grid;grid-template-columns:1.25fr .9fr;gap:13px}.clock{font-size:clamp(52px,10vw,82px);font-weight:650;letter-spacing:-.075em;line-height:1.05;margin:12px 0 6px;font-variant-numeric:tabular-nums}.muted{color:var(--muted);font-size:12px}.weather-main{display:flex;align-items:center;justify-content:space-between;margin-top:20px}.temp{font-size:49px;letter-spacing:-.07em}.weather-icon{font-size:34px}.weather-meta{display:flex;gap:15px;margin-top:17px;color:var(--muted);font-size:11px}.section{font-size:10px;color:var(--muted);letter-spacing:.15em;font-weight:800;margin:23px 2px 11px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px}.stat strong{display:block;font-size:24px;margin-top:9px;letter-spacing:-.04em}.lime{color:var(--lime)}
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.tool{background:var(--panel2);border:1px solid var(--line);color:var(--white);border-radius:13px;padding:14px 11px;text-align:left}.tool b{display:block;color:var(--lime);font-size:19px;margin-bottom:8px}.tool span{font-size:11px;font-weight:700}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#101010f2;border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:4px;backdrop-filter:blur(16px)}
+.navbtn{background:transparent;border:0;color:var(--muted);padding:8px 12px;border-radius:11px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:62px;font-size:9px}.navbtn .ico{font-size:18px}.navbtn.active{color:var(--lime);background:var(--soft)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.list{display:flex;flex-direction:column}.listitem{padding:13px 0;border-bottom:1px solid var(--line)}.listitem:last-child{border:0}.listitem a{color:var(--white);text-decoration:none;font-weight:650;font-size:13px}.listitem a:active{color:var(--lime)}.listitem p{font-size:11px;color:var(--muted);line-height:1.5;margin:6px 0 0}.tag{font-size:9px;color:var(--lime);text-transform:uppercase;letter-spacing:.1em}
+input,select,textarea{background:#0d0d0d;border:1px solid var(--line);border-radius:10px;color:var(--white);padding:11px;width:100%;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--lime)}label{display:block;color:var(--muted);font-size:11px;margin:10px 0 6px}.btn{border:0;border-radius:10px;background:var(--lime);color:#111;font-weight:800;font-size:12px;padding:11px 14px}.btn2{border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--white);font-size:12px;padding:10px 13px}.formrow{display:grid;grid-template-columns:1fr 1fr;gap:9px}.event{display:flex;justify-content:space-between;gap:10px;align-items:center}.event small{color:var(--muted);font-size:10px}.event strong{font-size:12px}.currency-result{font-size:30px;font-weight:700;letter-spacing:-.05em;margin:15px 0}.mapframe{width:100%;height:390px;border:0;border-radius:13px;background:#181818}.note{font-size:11px;color:var(--muted);line-height:1.5}.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--lime);color:#111;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:800;opacity:0;transition:.2s;pointer-events:none;z-index:20}.toast.show{opacity:1}
+@media(max-width:680px){.app{padding:0 13px}.grid2{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.tools{grid-template-columns:repeat(2,1fr)}.page-title{font-size:23px}.panel{padding:16px}.navbtn{min-width:0;flex:1;padding:8px 5px}.mapframe{height:55vh;min-height:300px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="brand"><span class="mark"></span> PERSONAL COMMAND CENTER</div>
+ <div class="head-actions"><span class="pill">PCC · 0.2</span><button class="iconbtn" id="installBtn" hidden>↓ Instaluj</button></div>
+</header>
+<main>
+<section class="view active" id="home">
+ <div class="pagehead"><div><div class="eyebrow" id="hello">PULPIT OSOBISTY</div><div class="page-title">Centrum dowodzenia</div></div><span class="tag">LIVE</span></div>
+ <div class="grid2">
+  <div class="panel"><div class="eyebrow">Lokalny czas · Radom</div><div class="clock" id="clock">--:--:--</div><div class="muted" id="date">Ładowanie…</div></div>
+  <div class="panel"><div class="row"><div class="eyebrow">Pogoda · Radom</div><span class="muted" id="weatherStatus">Pobieranie</span></div><div class="weather-main"><div><div class="temp" id="temp">--°</div><div class="muted" id="weatherDesc">Sprawdzam…</div></div><div class="weather-icon" id="weatherIcon">◌</div></div><div class="weather-meta"><span id="wind">Wiatr: --</span><span id="humidity">Wilgotność: --</span></div></div>
+ </div>
+ <div class="section">SZYBKI PRZEGLĄD</div>
+ <div class="stats">
+  <div class="stat"><div class="eyebrow">Dzień roku</div><strong id="dayYear">--</strong><div class="muted">Numer dnia</div></div>
+  <div class="stat"><div class="eyebrow">Do końca roku</div><strong id="yearLeft">--</strong><div class="muted">Pozostało dni</div></div>
+  <div class="stat"><div class="eyebrow">Kalendarz</div><strong id="eventCount">0</strong><div class="muted">Zapisane wydarzenia</div></div>
+ </div>
+ <div class="section">SZYBKIE NARZĘDZIA</div>
+ <div class="tools">
+  <button class="tool" data-go="calendar"><b>▦</b><span>Kalendarz</span></button><button class="tool" data-go="news"><b>↗</b><span>Wiadomości</span></button><button class="tool" data-go="currency"><b>⇄</b><span>Waluty</span></button><button class="tool" data-go="map"><b>⌖</b><span>Mapa</span></button>
+ </div>
+ <div class="section">NAJBLIŻSZE WYDARZENIA</div><div class="panel" id="upcoming"><div class="muted">Nie masz jeszcze zapisanych wydarzeń.</div></div>
+</section>
+
+<section class="view" id="calendar">
+ <div class="pagehead"><div><div class="eyebrow">ORGANIZACJA</div><div class="page-title">Kalendarz</div></div><span class="tag">LOKALNY</span></div>
+ <div class="panel">
+  <div class="row"><div><div class="eyebrow">Dzisiaj</div><div class="page-title" id="calendarToday">--</div></div><button class="btn2" id="clearDone">Wyczyść przeszłe</button></div>
+  <div class="section">DODAJ WYDARZENIE</div>
+  <label for="eventTitle">Nazwa</label><input id="eventTitle" placeholder="Np. nauka programowania">
+  <div class="formrow"><div><label for="eventDate">Data</label><input type="date" id="eventDate"></div><div><label for="eventTime">Godzina</label><input type="time" id="eventTime" value="18:00"></div></div>
+  <div style="margin-top:13px"><button class="btn" id="addEvent">Dodaj do kalendarza</button></div>
+ </div>
+ <div class="section">ZAPLANOWANE</div><div class="panel list" id="eventList"></div>
+ <p class="note">Wydarzenia są zapisywane lokalnie w pamięci tej aplikacji na tym urządzeniu.</p>
+</section>
+
+<section class="view" id="news">
+ <div class="pagehead"><div><div class="eyebrow">ZE ŚWIATA</div><div class="page-title">Wiadomości</div></div><button class="btn2" id="refreshNews">Odśwież ↻</button></div>
+ <div class="panel"><div class="row"><span class="eyebrow">Najnowsze nagłówki · Polska</span><span class="tag" id="newsStatus">RSS</span></div><div class="list" id="newsList" style="margin-top:8px"><div class="muted">Pobieranie wiadomości…</div></div></div>
+ <p class="note">Nagłówki pochodzą z publicznego kanału Google News. Otwierają oryginalne publikacje w przeglądarce.</p>
+</section>
+
+<section class="view" id="currency">
+ <div class="pagehead"><div><div class="eyebrow">RYNKI</div><div class="page-title">Kursy walut</div></div><span class="tag">NBP / ECB DATA</span></div>
+ <div class="panel">
+  <div class="eyebrow">Przelicznik walut</div>
+  <label for="amount">Kwota</label><input id="amount" type="number" min="0" step="any" value="100">
+  <div class="formrow"><div><label for="fromCurrency">Z</label><select id="fromCurrency"><option>PLN</option><option>EUR</option><option>USD</option><option>GBP</option><option>CHF</option></select></div><div><label for="toCurrency">Na</label><select id="toCurrency"><option>EUR</option><option>PLN</option><option>USD</option><option>GBP</option><option>CHF</option></select></div></div>
+  <div class="currency-result" id="conversion">—</div><div class="muted" id="currencyDate">Pobieranie kursów…</div>
+  <div style="margin-top:15px"><button class="btn" id="convert">Przelicz</button></div>
+ </div>
+ <div class="section">INFORMACJE</div><div class="panel"><div class="muted">Kursy referencyjne z serwisu Frankfurter (dane banków centralnych). To przelicznik informacyjny, nie oferta wymiany walut.</div></div>
+</section>
+
+<section class="view" id="map">
+ <div class="pagehead"><div><div class="eyebrow">LOKALIZACJA</div><div class="page-title">Mapa</div></div><span class="tag">RADOM</span></div>
+ <div class="panel"><div class="row"><div class="eyebrow">Radom i okolice</div><a class="tag" href="https://www.openstreetmap.org/#map=12/51.402/21.148" target="_blank" rel="noopener">Otwórz pełną mapę ↗</a></div><div style="margin-top:13px"><iframe class="mapframe" title="Mapa Radomia" src="https://www.openstreetmap.org/export/embed.html?bbox=21.05%2C51.35%2C21.25%2C51.46&amp;layer=mapnik&amp;marker=51.402%2C21.148" loading="lazy"></iframe></div><p class="note">Mapa korzysta z OpenStreetMap. Do załadowania mapy potrzebne jest połączenie z internetem.</p></div>
+</section>
+</main>
+</div>
+<nav class="bottomnav" aria-label="Nawigacja">
+ <button class="navbtn active" data-view="home"><span class="ico">⌂</span>Start</button>
+ <button class="navbtn" data-view="calendar"><span class="ico">▦</span>Kalendarz</button>
+ <button class="navbtn" data-view="news"><span class="ico">▤</span>News</button>
+ <button class="navbtn" data-view="currency"><span class="ico">⇄</span>Waluty</button>
+ <button class="navbtn" data-view="map"><span class="ico">⌖</span>Mapa</button>
+</nav>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id),today=()=>new Date().toISOString().slice(0,10);
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2200)}
+function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===id));if(id==='news'&&!newsLoaded)loadNews();if(id==='currency')convertCurrency();if(id==='calendar')renderEvents();window.scrollTo(0,0)}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.go)));
+function tick(){const n=new Date();$('clock').textContent=new Intl.DateTimeFormat('pl-PL',{hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(n);$('date').textContent=new Intl.DateTimeFormat('pl-PL',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(n);$('calendarToday').textContent=new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'long',year:'numeric'}).format(n);$('dayYear').textContent=Math.floor((n-new Date(n.getFullYear(),0,0))/86400000);$('yearLeft').textContent=Math.ceil((new Date(n.getFullYear(),11,31)-new Date(n.getFullYear(),n.getMonth(),n.getDate()))/86400000)}
+tick();setInterval(tick,1000);$('eventDate').value=today();
+function weatherLabel(c){if(c===0)return['Bezchmurnie','☀'];if([1,2].includes(c))return['Częściowe zachmurzenie','⛅'];if(c===3)return['Pochmurno','☁'];if([45,48].includes(c))return['Mgła','≋'];if([51,53,55,61,63,65,80,81,82].includes(c))return['Deszcz','☂'];if([71,73,75,77,85,86].includes(c))return['Śnieg','❄'];if([95,96,99].includes(c))return['Burza','ϟ'];return['Warunki pogodowe','◌']}
+async function loadWeather(){try{let r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=51.402&longitude=21.148&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Europe%2FWarsaw');if(!r.ok)throw 0;let c=(await r.json()).current,[d,i]=weatherLabel(c.weather_code);$('temp').textContent=Math.round(c.temperature_2m)+'°';$('weatherDesc').textContent=d;$('weatherIcon').textContent=i;$('wind').textContent='Wiatr: '+Math.round(c.wind_speed_10m)+' km/h';$('humidity').textContent='Wilgotność: '+c.relative_humidity_2m+'%';$('weatherStatus').textContent='Aktualne dane'}catch(e){$('weatherStatus').textContent='Brak danych';$('weatherDesc').textContent='Sprawdź internet'}}
+loadWeather();setInterval(loadWeather,900000);
+let events=JSON.parse(localStorage.getItem('pcc-events')||'[]');
+function saveEvents(){localStorage.setItem('pcc-events',JSON.stringify(events));renderEvents()}
+function renderEvents(){events.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));$('eventCount').textContent=events.length;let future=events.filter(e=>e.date>=today());$('upcoming').innerHTML=future.length?future.slice(0,3).map(e=>`<div class="listitem event"><div><strong>${escapeHtml(e.title)}</strong><br><small>${e.date} · ${e.time}</small></div></div>`).join(''):'<div class="muted">Nie masz jeszcze zapisanych wydarzeń.</div>';$('eventList').innerHTML=events.length?events.map((e,i)=>`<div class="listitem event"><div><strong>${escapeHtml(e.title)}</strong><br><small>${e.date} · ${e.time}</small></div><button class="btn2" data-del="${i}">Usuń</button></div>`).join(''):'<div class="muted">Kalendarz jest pusty. Dodaj pierwsze wydarzenie powyżej.</div>';document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{events.splice(+b.dataset.del,1);saveEvents()})}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('addEvent').onclick=()=>{let title=$('eventTitle').value.trim(),date=$('eventDate').value,time=$('eventTime').value;if(!title||!date||!time){toast('Uzupełnij nazwę, datę i godzinę');return}events.push({title,date,time});$('eventTitle').value='';saveEvents();toast('Dodano wydarzenie')};
+$('clearDone').onclick=()=>{events=events.filter(e=>e.date>=today());saveEvents();toast('Usunięto przeszłe wydarzenia')};renderEvents();
+let newsLoaded=false;
+async function loadNews(){$('newsList').innerHTML='<div class="muted">Pobieranie nagłówków…</div>';$('newsStatus').textContent='ŁADOWANIE';try{const url='https://news.google.com/rss?hl=pl&gl=PL&ceid=PL:pl';const proxy='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(url);const r=await fetch(proxy);if(!r.ok)throw 0;const d=await r.json();if(!d.items?.length)throw 0;$('newsList').innerHTML=d.items.slice(0,12).map(x=>`<div class="listitem"><a href="${x.link}" target="_blank" rel="noopener">${escapeHtml(x.title||'Bez tytułu')} ↗</a><p>${new Date(x.pubDate).toLocaleString('pl-PL')} · ${escapeHtml(x.author||'Google News')}</p></div>`).join('');$('newsStatus').textContent='AKTUALNE';newsLoaded=true}catch(e){$('newsList').innerHTML='<div class="muted">Nie udało się pobrać nagłówków. Sprawdź połączenie i spróbuj ponownie.</div>';$('newsStatus').textContent='BŁĄD'}}
+$('refreshNews').onclick=()=>{newsLoaded=false;loadNews()};
+let rates={};
+async function convertCurrency(){let from=$('fromCurrency').value,to=$('toCurrency').value,amount=Number($('amount').value||0);if(from===to){$('conversion').textContent=amount.toFixed(2)+' '+to;$('currencyDate').textContent='Ta sama waluta';return}try{const r=await fetch(`https://api.frankfurter.dev/v1/latest?base=${from}&symbols=${to}`);if(!r.ok)throw 0;const d=await r.json(),rate=d.rates[to];$('conversion').textContent=(amount*rate).toLocaleString('pl-PL',{maximumFractionDigits:2})+' '+to;$('currencyDate').textContent=`1 ${from} = ${rate} ${to} · data kursu: ${d.date}`}catch(e){$('conversion').textContent='Brak danych';$('currencyDate').textContent='Nie udało się pobrać kursu'}}
+$('convert').onclick=convertCurrency;$('fromCurrency').onchange=convertCurrency;$('toCurrency').onchange=convertCurrency;
+let deferredPrompt;$('installBtn').hidden=true;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('installBtn').hidden=false});$('installBtn').onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$('installBtn').hidden=true};
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
