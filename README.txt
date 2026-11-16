@@ -1,26 +1,24 @@
-PERSONAL COMMAND CENTER — PCC 0.2
+PERSONAL COMMAND CENTER — PCC 0.3
 
-To jest instalowalna aplikacja webowa (PWA), nie natywna aplikacja APK.
+Nowość:
+- automatycznie dopasowany, szeroki układ po obróceniu telefonu poziomo;
+- mniejsze odstępy i bardziej zwarty pulpit w orientacji poziomej;
+- nawigacja dopasowana do szerokiego ekranu;
+- aplikacja nie wymusza już orientacji pionowej.
 
-ZAWARTOŚĆ:
-- index.html — aplikacja
-- manifest.webmanifest — ustawienia instalacji
-- sw.js — cache aplikacji/offline shell
-- icon.svg — ikona
+Pozostałe funkcje PCC 0.2 pozostają bez zmian.
 
-WAŻNE:
-Aby zainstalować PCC na Androidzie jak aplikację, pliki muszą być opublikowane pod adresem HTTPS.
-Samo otwarcie index.html z folderu/Pobranych pozwala przetestować stronę, ale nie zapewnia instalacji PWA.
-Po opublikowaniu otwórz adres w Chrome i wybierz „Zainstaluj aplikację” lub „Dodaj do ekranu głównego”.
+AKTUALIZACJA NA GITHUB PAGES:
+1. Rozpakuj ZIP.
+2. W repozytorium personal-command-center usuń stare pliki index.html,
+   manifest.webmanifest i sw.js lub zastąp je nowymi wersjami.
+3. Prześlij nowe pliki do głównego katalogu repozytorium.
+4. Zatwierdź zmiany (Commit changes).
+5. Otwórz aplikację ponownie. Jeśli widzisz starą wersję, zamknij ją
+   całkowicie i uruchom ponownie; czasem trzeba odświeżyć stronę w Chrome.
 
-FUNKCJE:
-- zegar i data
-- pogoda dla Radomia
-- lokalny kalendarz wydarzeń (LocalStorage)
-- wiadomości (Google News RSS przez rss2json)
-- kursy walut (Frankfurter API)
-- mapa OpenStreetMap
-- responsywny interfejs mobilny
-
-Wymagane połączenie z internetem dla pogody, wiadomości, kursów walut i mapy.
-Kalendarz i podstawowy szkielet interfejsu działają lokalnie.
+Uwaga:
+PCC działa jako PWA. Pogoda, wiadomości, kursy walut i mapa wymagają internetu.
+Przeglądarka nie udostępnia zwykłej stronie pełnych danych o RAM ani wszystkich
+statystyk sprzętowych telefonu, dlatego nie są one pokazywane jako rzekomo
+dostępne pomiary.

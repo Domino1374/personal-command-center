@@ -23,13 +23,49 @@ main{padding:23px 0 30px}.view{display:none}.view.active{display:block}.pagehead
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px}.list{display:flex;flex-direction:column}.listitem{padding:13px 0;border-bottom:1px solid var(--line)}.listitem:last-child{border:0}.listitem a{color:var(--white);text-decoration:none;font-weight:650;font-size:13px}.listitem a:active{color:var(--lime)}.listitem p{font-size:11px;color:var(--muted);line-height:1.5;margin:6px 0 0}.tag{font-size:9px;color:var(--lime);text-transform:uppercase;letter-spacing:.1em}
 input,select,textarea{background:#0d0d0d;border:1px solid var(--line);border-radius:10px;color:var(--white);padding:11px;width:100%;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--lime)}label{display:block;color:var(--muted);font-size:11px;margin:10px 0 6px}.btn{border:0;border-radius:10px;background:var(--lime);color:#111;font-weight:800;font-size:12px;padding:11px 14px}.btn2{border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--white);font-size:12px;padding:10px 13px}.formrow{display:grid;grid-template-columns:1fr 1fr;gap:9px}.event{display:flex;justify-content:space-between;gap:10px;align-items:center}.event small{color:var(--muted);font-size:10px}.event strong{font-size:12px}.currency-result{font-size:30px;font-weight:700;letter-spacing:-.05em;margin:15px 0}.mapframe{width:100%;height:390px;border:0;border-radius:13px;background:#181818}.note{font-size:11px;color:var(--muted);line-height:1.5}.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--lime);color:#111;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:800;opacity:0;transition:.2s;pointer-events:none;z-index:20}.toast.show{opacity:1}
 @media(max-width:680px){.app{padding:0 13px}.grid2{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.tools{grid-template-columns:repeat(2,1fr)}.page-title{font-size:23px}.panel{padding:16px}.navbtn{min-width:0;flex:1;padding:8px 5px}.mapframe{height:55vh;min-height:300px}}
+
+/* PCC 0.3 — szeroki pulpit po obróceniu telefonu */
+@media (orientation:landscape) and (min-width:560px){
+ body{min-height:100dvh;padding-bottom:calc(54px + env(safe-area-inset-bottom))}
+ .app{max-width:1500px;padding:0 22px}
+ header{height:54px}
+ main{padding:13px 0 18px}
+ .page-title{font-size:22px}
+ .pagehead{margin:0 0 12px}
+ .grid2{grid-template-columns:1.12fr .88fr;gap:12px}
+ .panel{padding:15px;border-radius:15px}
+ .clock{font-size:clamp(48px,8vw,72px);margin:8px 0 4px}
+ .weather-main{margin-top:10px}
+ .temp{font-size:42px}
+ .weather-meta{margin-top:10px}
+ .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+ .stat{padding:12px;border-radius:13px}
+ .stat strong{font-size:21px}
+ .tools{grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+ .tool{padding:12px 9px}
+ .tool b{font-size:17px;margin-bottom:5px}
+ .bottomnav{padding:5px 12px calc(5px + env(safe-area-inset-bottom));gap:8px}
+ .navbtn{flex-direction:row;gap:7px;min-width:88px;padding:7px 12px;font-size:10px}
+ .navbtn .ico{font-size:16px}
+ .mapframe{height:calc(100dvh - 145px);min-height:220px}
+}
+@media (orientation:landscape) and (max-height:430px){
+ header{height:46px}
+ main{padding-top:9px}
+ .clock{font-size:clamp(42px,7vw,62px)}
+ .panel{padding:12px}
+ .section{margin:14px 2px 8px}
+ .bottomnav{padding-top:3px;padding-bottom:calc(3px + env(safe-area-inset-bottom))}
+ .navbtn{padding:5px 10px}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
 <header>
  <div class="brand"><span class="mark"></span> PERSONAL COMMAND CENTER</div>
- <div class="head-actions"><span class="pill">PCC · 0.2</span><button class="iconbtn" id="installBtn" hidden>↓ Instaluj</button></div>
+ <div class="head-actions"><span class="pill">PCC · 0.3</span><button class="iconbtn" id="installBtn" hidden>↓ Instaluj</button></div>
 </header>
 <main>
 <section class="view active" id="home">
